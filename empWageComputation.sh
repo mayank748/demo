@@ -10,8 +10,10 @@ totalWage=0 #To store the total wage of the emp
 totalWorkingDay=0 #To store to working days of emp
 totalWageInMonth=0 #To store the total wage of emp in month
 totalWorkingHours=0 #To store the total working hours
+GIVEN_WORKING_HOUR=100
+GIVEN_NUMBER_OF_DAYS=20
 
-while [[ $totalWorkingDay -le 20 && $totalWorkingHours -le 100 ]]
+while [[ $totalWorkingDay -lt $GIVEN_NUMBER_OF_DAYS && $totalWorkingHours -lt $GIVEN_WORKING_HOUR ]]
 do
 checkAttandance=$(( $RANDOM % 10)) #To get for the check of emp attandance
 #To check the attandance
@@ -31,9 +33,17 @@ esac
 #To incremnt the working days of emp
 if [[ $isPresent -eq 1 || $isPartTime -eq 2 ]]
 then
+	if [[ $totalWorkingDay -lt $GIVEN_NUMBER_OF_DAYS && $totalWorkingHours -lt $GIVEN_WORKING_HOUR  ]]
+	then
 	totalWorkingDay=$(( $totalWorkingDay + 1 ))
-	totalWorkingHours=$(( $totalWorkingHours + $noOfWorkingHour))
+	totalHour;
+	fi
 fi
+
+#To calculate the total working hour
+function totalHour(){
+	totalWorkingHours=$(( $totalWorkingHours + $noOfWorkingHour))
+}
 
 #Calculating the wage of the emp
 totalWage=$(($totalWage+$(( noOfWorkingHour*chargeForOneHour ))))
