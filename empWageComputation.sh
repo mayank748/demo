@@ -12,8 +12,7 @@ totalWageInMonth=0 #To store the total wage of emp in month
 totalWorkingHours=0 #To store the total working hours
 GIVEN_WORKING_HOUR=100
 GIVEN_NUMBER_OF_DAYS=20
-perDayWage=[] #To store the total wage of present day
-totalWorkingWage=[] #To store the total wage of total days present in the month on a particular date
+declare -A empWage
 
 #To calculate the total working hour
 function totalHour(){
@@ -49,13 +48,11 @@ then
 
 #Calculating the wage of the emp
 totalPerDayWage=$(( noOfWorkingHour*chargeForOneHour ))
-perDayWage[counter]=$totalPerDayWage
 totalWage=$(($totalWage+$totalPerDayWage))
 echo "Total Wage of emp in a day "$totalPerDayWage
-totalWorkingWage[counter]=$totalWage
-((counter++))
-echo "To get wage store per day "${perDayWage[@]}
-echo "To wage in respective working "${totalWorkingWage[@]}
+empWage[ $totalWage ]=$totalPerDayWage
+echo "Total daily wage of emp as key "${!empWage[@]}
+echo "Total daily wage of emp " ${empWage[@]}
 
 fi
 
